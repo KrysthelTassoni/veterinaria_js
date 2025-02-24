@@ -1,19 +1,20 @@
-const { registrar, leer } = require('./operaciones');
+const { registrar, leer } = require("./operaciones");
 
-const args = process.argv.slice(2);
-const operacion = args[0];
+// Obtener argumentos de la línea de comandos
+const [operacion, nombre, edad, animal, color, enfermedad] = process.argv.slice(2);
 
+// Evaluar qué operación ejecutar
 if (operacion === "registrar") {
-    const [nombre, edad, animal, color, enfermedad] = args.slice(1);
     if (!nombre || !edad || !animal || !color || !enfermedad) {
-        console.log('⚠️ Debes proporcionar todos los datos: nombre, edad, animal, color y enfermedad.');
+        console.log("⚠️ Debes ingresar todos los datos: nombre, edad, animal, color, enfermedad.");
     } else {
         registrar(nombre, edad, animal, color, enfermedad);
     }
 } else if (operacion === "leer") {
     leer();
 } else {
-    console.log('⚠️ Operación no válida. Usa "registrar" o "leer".');
+    console.log("⚠️ Operación no reconocida. Usa 'registrar' o 'leer'.");
 }
+
 
 

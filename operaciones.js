@@ -1,46 +1,56 @@
-const fs = require('fs');
+const fs = require("fs");
 
+// Ruta del archivo JSON
+const archivo = "citas.json";
+
+// Función para registrar una cita
 const registrar = (nombre, edad, animal, color, enfermedad) => {
-    // Leer el archivo citas.json
+    // Crear objeto de la cita
+    const nuevaCita = {
+        nombre,
+        edad,
+        animal,
+        color,
+        enfermedad,
+    };
+
+    // Leer el archivo si existe, o crear un array vacío si no existe
     let citas = [];
-    try {
-        const data = fs.readFileSync('citas.json', 'utf-8');
-        citas = JSON.parse(data);
-    } catch (error) {
-        // Si el archivo está vacío o no existe, se mantiene un arreglo vacío
+    if (fs.existsSync(archivo)) {
+        const data = fs.readFileSync(archivo, "utf-8");
+        citas = data ? JSON.parse(data) : [];
     }
 
-    // Crear nueva cita
-    const nuevaCita = { nombre, edad, animal, color, enfermedad };
+    // Agregar la nueva cita al array
     citas.push(nuevaCita);
 
-    // Guardar en citas.json
-    fs.writeFileSync('citas.json', JSON.stringify(citas, null, 2), 'utf-8');
-    console.log('📌 Cita registrada con éxito!');
+    // Guardar en el archivo
+    fs.writeFileSync(archivo, JSON.stringify(citas, null, 2));
+    console.log("✅ Cita registrada correctamente.");
 };
 
+// Función para leer las citas y mostrarlas en formato de texto
 const leer = () => {
-    try {
-        // Leer el contenido del archivo citas.json
-        const data = fs.readFileSync('citas.json', 'utf-8');
-        const citas = JSON.parse(data);
+    // Verificar si el archivo existe
+    if (!fs.existsSync(archivo)) {
+        console.log("📂 No hay citas registradas aún.");
+        return;
+    }
 
-        // Si no hay citas, mostrar un mensaje
-        if (citas.length === 0) {
-            console.log('📌 No hay citas registradas.');
-            return;
-        }
+    // Leer el archivo
+    const data = fs.readFileSync(archivo, "utf-8");
+    const citas = data ? JSON.parse(data) : [];
 
-        // Formatear las citas para mostrarlas en la terminal
-        const citasComoTexto = citas.map(cita => 
-            `Nombre: ${cita.nombre}, Edad: ${cita.edad}, Animal: ${cita.animal}, Color: ${cita.color}, Enfermedad: ${cita.enfermedad}`
-        ).join('\n');
-
-        console.log(citasComoTexto);
-    } catch (error) {
-        console.log('⚠️ No se pudo leer el archivo citas.json o está vacío.');
+    // Mostrar citas en formato de texto
+    if (citas.length === 0) {
+        console.log("📂 No hay citas registradas.");
+    } else {
+        citas.forEach((cita) => {
+            console.log(`📌 Nombre: ${cita.nombre}, Edad: ${cita.edad}, Animal: ${cita.animal}, Color: ${cita.color}, Enfermedad: ${cita.enfermedad}`);
+        });
     }
 };
 
-// Exportar las funciones
+// Exportar funciones
 module.exports = { registrar, leer };
+

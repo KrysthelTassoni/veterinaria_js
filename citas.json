@@ -7,17 +7,17 @@
     "enfermedad": "vómitos"
   },
   {
-    "nombre": "Julietta",
-    "edad": "6 años",
-    "animal": "perro",
-    "color": "amarillo",
-    "enfermedad": "moquillo"
+    "nombre": "Luna",
+    "edad": "3 años",
+    "animal": "gato",
+    "color": "negro",
+    "enfermedad": "tos"
   },
   {
-    "nombre": "Max",
-    "edad": "3 años",
-    "animal": "perro",
-    "color": "negro",
-    "enfermedad": "gripe"
+    "nombre": "Julieta",
+    "edad": "6 años",
+    "animal": "conejo",
+    "color": "marron",
+    "enfermedad": "moquillo"
   }
 ]
